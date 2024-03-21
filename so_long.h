@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:56 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/20 19:30:36 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 11:51:42 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ typedef struct s_context
 	int		y;
 	int		updated_x;
 	int		updated_y;
+	int		exit_i;
+	int		exit_j;
 	int		collectables;
+	int		total_collectables;
 	int		exit;
 
 	int		fd;

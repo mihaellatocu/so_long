@@ -6,12 +6,13 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:44:51 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/20 19:58:46 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 12:30:41 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
+#include <string.h>
 
 void	load_map(t_context *ctx);
 //void player_position(t_context *ctx);
@@ -40,6 +41,11 @@ int close_window(t_context *ctx)
 
 int deal_key(int key, t_context *ctx)
 {
+	mlx_string_put(ctx->mlx, ctx->win, 45, ctx->nr_lines * 32 + 50, 0x000000, ft_itoa(ctx->moves) );
+	if (ctx->collectables == ctx->total_collectables)
+	{
+		ctx->map[ctx->exit_i][ctx->exit_j] = 'e';
+	}
 	printf("%d\n", key);
 	if (key == XK_Escape)
 	{
@@ -54,37 +60,56 @@ int deal_key(int key, t_context *ctx)
 		free_map(ctx);
 		exit(1);
 	}
-	printf("elem harta %c\n", ctx->map[ctx->y/32][ctx->x/32]);
-	if(key == XK_Up && ctx->map[ctx->y/32][ctx->x/32] != '1')
+	//printf("total collectables %d\n", ctx->total_collectables);
+	else if(key == XK_Up && ctx->map[ctx->y-1][ctx->x] != '1' && ctx->map[ctx->y-1][ctx->x] != 'E')
 	{
+		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x *32, ctx->y*32);
+		ctx-> y -= 1;
+		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x*32, ctx->y*32);
+		ctx->moves++;
+		if (ctx->map[ctx->y][ctx->x] == 'C')
+			ctx->collectables++;
+		if (ctx->map[ctx->y][ctx->x] == 'e' && (ctx->collectables == ctx->total_collectables))
+			close_window(ctx);
+	}
+	else if(key == XK_Left && ctx->map[ctx->y][ctx->x -1] != '1' && ctx->map[ctx->y][ctx->x -1] != 'E')
+	{
+		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x*32, ctx->y * 32);
+		ctx-> x -= 1;
+		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x * 32, ctx->y  * 32);
+		ctx->moves++;
+		if (ctx->map[ctx->y][ctx->x] == 'C')
+			ctx->collectables++;
+		if (ctx->map[ctx->y][ctx->x] == 'e' && (ctx->collectables == ctx->total_collectables))
+			close_window(ctx);
 
-		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x, ctx->y);
-		ctx-> y -= 32;
-		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x, ctx->y);
 	}
-	if(key == XK_Left)
+	else if(key == XK_Down && ctx->map[ctx->y+1][ctx->x] != '1' && ctx->map[ctx->y+1][ctx->x] != 'E')
 	{
-		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x, ctx->y);
-		ctx-> x -= 32;
-		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x, ctx->y);
+		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x*32, ctx->y*32);
+		ctx-> y += 1;
+		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x*32, ctx->y*32);
+		ctx->moves++;
+		if (ctx->map[ctx->y][ctx->x] == 'C')
+			ctx->collectables++;
+		if (ctx->map[ctx->y][ctx->x] == 'e' && (ctx->collectables == ctx->total_collectables))
+			close_window(ctx);
 	}
-	if(key == XK_Down)
+	else if(key == XK_Right && ctx->map[ctx->y][ctx->x + 1] != '1' && ctx->map[ctx->y][ctx->x + 1] != 'E')
 	{
-		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x, ctx->y);
-		ctx-> y += 32;
-		printf("poz y este : %d\n", ctx->y/32);
-		printf("poz x este : %d\n", ctx->x/32);
-		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x, ctx->y);
-		
+		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x * 32, ctx->y * 32);
+		ctx-> x += 1;
+		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x * 32, ctx->y * 32);
+		ctx->moves++;
+		if (ctx->map[ctx->y][ctx->x] == 'C')
+			ctx->collectables++;
+		if (ctx->map[ctx->y][ctx->x] == 'e' && (ctx->collectables == ctx->total_collectables))
+			close_window(ctx);
 	}
-	if(key == XK_Right)
-	{
-		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x, ctx->y);
-		ctx-> x += 32;
-		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x, ctx->y);
-	}
-	ctx->moves++;
 	printf("\033[1;32mMoves: %d\033[0m\n", ctx->moves);
+	mlx_string_put(ctx->mlx, ctx->win, 5, ctx->nr_lines * 32 + 50, 0xffffff, "Moves:");
+	mlx_string_put(ctx->mlx, ctx->win, 45, ctx->nr_lines * 32 + 50, 0xffffff, ft_itoa(ctx->moves) );
+	printf("\033[1;32mCollectables: %d\033[0m\n", ctx->collectables);
 	return (0);
 }
 
@@ -95,11 +120,14 @@ void init(char **argv, t_context *ctx)
 	ctx->win = NULL;
 	ctx->x = 0;
 	ctx->y = 0;
+	ctx->updated_x = 0;
+	ctx->updated_y = 0;
 	ctx->len_line = 0;
 	ctx->nr_lines = 0;
 	ctx->relative_path = "./resources/cat/idle.xpm";
 	ctx->path_empty = "./resources/cat/empty.xpm";
 	ctx->collectables = 0;
+	ctx->total_collectables = 0;
 	ctx->exit = 0;
 	ctx->moves = 0;
 	// ctx->path_devil = "./resources/cat/devil.xpm";
@@ -196,18 +224,17 @@ int main(int argc, char **argv)
 		if (ctx.win == NULL)
 			return (free(ctx.mlx), -1);
 	
-		update_img_size(&ctx); //updating the size of x and Y with 32px
 		
 		ctx.img_cat = mlx_xpm_file_to_image(ctx.mlx, ctx.relative_path, &ctx.img_width, &ctx.img_height);// ading the player img to a tile
-		mlx_put_image_to_window(ctx.mlx, ctx.win, ctx.img_cat, ctx.x, ctx.y); // adding the player in a specific place
-		
+		//mlx_put_image_to_window(ctx.mlx, ctx.win, ctx.img_cat, ctx.updated_x, ctx.updated_y); // adding the player in a specific place
+		//mlx_put_image_to_window(ctx.mlx, ctx.win, ctx.img_cat, ctx.x * 32, ctx.y*32);//Antoniio
+
 		ctx.img_empty = mlx_xpm_file_to_image(ctx.mlx, ctx.path_empty, &ctx.img_width, &ctx.img_height);// ading empty img to a tile
-		
 		ctx.img_wall = mlx_xpm_file_to_image(ctx.mlx, ctx.path_wall, &ctx.img_width, &ctx.img_height);//loading wall img
 		ctx.img_exit = mlx_xpm_file_to_image(ctx.mlx, ctx.path_exit, &ctx.img_width, &ctx.img_height); //loading exit img
 		ctx.img_coin = mlx_xpm_file_to_image(ctx.mlx, ctx.path_coin, &ctx.img_width, &ctx.img_height);
 		
-		load_map(&ctx);
+		load_map(&ctx);//put img to window
 	
 		mlx_hook(ctx.win, 17, 1L << 0, close_window, &ctx);//closing window from x
 		

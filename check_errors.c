@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:06 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/20 12:58:41 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 10:40:34 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	collectables_or_exit_in_reach(t_context *ctx)
 		exit(1);
 	}
 	flood_fill (ctx, ctx->y, ctx->x);
-	printf("collectables: %d | exits:  %d\n", ctx->collectables, ctx->exit);
+	//printf("collectables: %d | exits:  %d\n", ctx->collectables, ctx->exit);
 	if (ctx->collectables != 0 || ctx->exit != 1)
 	{
 		perror("\033[1;31mError: Player cannot reach to the exit or all collectables.\033[0m");

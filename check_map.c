@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:11:00 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/20 12:53:25 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 11:31:49 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	check_nr_collectables(t_context *ctx)
 		}
 		++i;
 	}
+	ctx->total_collectables = ctx->collectables;
 	return (ctx->collectables);
 }
 
@@ -93,15 +94,15 @@ bool	flood_fill(t_context *ctx, int row, int col)
 
 	if (ctx->temp_map[row][col] == 'E')
 	{
-		printf ("Found the exit\n");
+		//printf ("Found the exit\n");
 		ctx->exit++;
-		printf("Exit found from flood fill function %d\n", ctx->exit);
+		//printf("Exit found from flood fill function %d\n", ctx->exit);
 	}
 	if (ctx->temp_map[row][col] == 'C')
 	{
-		printf("nr of collectables before are:         %d\n", ctx->collectables);
+		//printf("nr of collectables before are:         %d\n", ctx->collectables);
 		ctx->collectables--;
-		printf("nr of collectables after finding C is:  %d\n", ctx->collectables);
+		//printf("nr of collectables after finding C is:  %d\n", ctx->collectables);
 		// if (ctx->collectables == 0 && exit == 1)
 		//     return true;
 	}
