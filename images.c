@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:22:11 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 11:58:19 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 17:03:45 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	load_map(t_context *ctx)
 		while (j < ctx->len_line)
 		{
 			if (ctx->map[i][j] == '1')
-			{
 				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_wall, j * 32, i * 32);
-			}
 			if (ctx->map[i][j] == 'E')
 			{
 				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_exit, j * 32, i * 32);
@@ -43,13 +41,11 @@ void	load_map(t_context *ctx)
 				ctx->exit_j = j;
 			}
 			if (ctx->map[i][j] == 'C')
-			{
 				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_coin, j * 32, i * 32);
-			}
 			if (ctx->map[i][j] == 'P')
-			{
 				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, j * 32, i * 32);
-			}
+			if (ctx->map[i][j] == 'N')
+				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_devil, j * 32, i * 32);	
 			j++;
 		}
 		i++;

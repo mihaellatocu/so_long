@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:56 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 11:51:42 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 15:50:29 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <stdbool.h>
 # include <errno.h>
 # include "get_next_line.h"
+# include <string.h>
+# include <stdio.h>
+
 
 typedef struct s_context
 {
@@ -82,17 +85,18 @@ void	load_map(t_context *ctx);
 void	update_img_size(t_context *ctx);
 
 
-//void ft_error(int argc, char **argv);
+
 
 
 void	ft_putnr(char c);
+char	*f_itoa(int nbr);
 int		close_window(t_context *ctx);
 int		deal_key(int key, t_context *ctx);
 void	init(char **argv, t_context *ctx);
 
 
 void	player_position(t_context *ctx);
-//void	ft_free(t_context *ctx);
+
 
 
 #endif

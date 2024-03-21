@@ -6,17 +6,15 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:44:51 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 12:30:41 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 17:10:16 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
-#include <string.h>
+
 
 void	load_map(t_context *ctx);
-//void player_position(t_context *ctx);
-//int map_lines(char **argv, t_context *ctx);
 
 void	ft_putnr(char c)
 {
@@ -30,37 +28,29 @@ int close_window(t_context *ctx)
 	mlx_destroy_image(ctx->mlx, ctx->img_wall); // remove walls img
 	mlx_destroy_image(ctx->mlx, ctx->img_exit); // remove exit img
 	mlx_destroy_image(ctx->mlx, ctx->img_coin); // remove coin img
+	mlx_destroy_image(ctx->mlx, ctx->img_devil); //remove devil
 	mlx_destroy_window(ctx->mlx, ctx->win);
 	mlx_destroy_display(ctx->mlx);
 	free(ctx->mlx); 
 	free_map(ctx);
-	//mlx_loop_end(ctx->mlx);
-	//return (0);
 	exit(1);
 }
 
 int deal_key(int key, t_context *ctx)
 {
-	mlx_string_put(ctx->mlx, ctx->win, 45, ctx->nr_lines * 32 + 50, 0x000000, ft_itoa(ctx->moves) );
+	//  char *a = ft_itoa(ctx->moves);
+	//  char *b = ft_strjoin("Moves ", a);
+	// free(a);
+	// mlx_string_put(ctx->mlx, ctx->win, 45, ctx->nr_lines * 32 + 50, 0x000000, b); //ft_itoa(ctx->moves) );
+	//free(f_itoa(ctx->moves));
 	if (ctx->collectables == ctx->total_collectables)
 	{
 		ctx->map[ctx->exit_i][ctx->exit_j] = 'e';
 	}
 	printf("%d\n", key);
+	printf("total collectables %d\n", ctx->total_collectables);
 	if (key == XK_Escape)
-	{
-		mlx_destroy_image(ctx->mlx, ctx->img_cat);
-		mlx_destroy_image(ctx->mlx, ctx->img_empty);
-		mlx_destroy_image(ctx->mlx, ctx->img_wall); // remove walls img
-		mlx_destroy_image(ctx->mlx, ctx->img_exit); // remove exit img
-		mlx_destroy_image(ctx->mlx, ctx->img_coin); // remove coin img
-		mlx_destroy_window(ctx->mlx, ctx->win);
-		mlx_destroy_display(ctx->mlx);
-		free(ctx->mlx);
-		free_map(ctx);
-		exit(1);
-	}
-	//printf("total collectables %d\n", ctx->total_collectables);
+		close_window(ctx);
 	else if(key == XK_Up && ctx->map[ctx->y-1][ctx->x] != '1' && ctx->map[ctx->y-1][ctx->x] != 'E')
 	{
 		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_empty, ctx->x *32, ctx->y*32);
@@ -68,7 +58,12 @@ int deal_key(int key, t_context *ctx)
 		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x*32, ctx->y*32);
 		ctx->moves++;
 		if (ctx->map[ctx->y][ctx->x] == 'C')
+		{
 			ctx->collectables++;
+			ctx->map[ctx->y][ctx->x] = '0';
+		}
+		if (ctx->map[ctx->y][ctx->x] == 'N')
+			close_window(ctx);
 		if (ctx->map[ctx->y][ctx->x] == 'e' && (ctx->collectables == ctx->total_collectables))
 			close_window(ctx);
 	}
@@ -79,7 +74,12 @@ int deal_key(int key, t_context *ctx)
 		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x * 32, ctx->y  * 32);
 		ctx->moves++;
 		if (ctx->map[ctx->y][ctx->x] == 'C')
+		{
 			ctx->collectables++;
+			ctx->map[ctx->y][ctx->x] = '0';
+		}
+		if (ctx->map[ctx->y][ctx->x] == 'N')
+			close_window(ctx);
 		if (ctx->map[ctx->y][ctx->x] == 'e' && (ctx->collectables == ctx->total_collectables))
 			close_window(ctx);
 
@@ -91,7 +91,12 @@ int deal_key(int key, t_context *ctx)
 		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x*32, ctx->y*32);
 		ctx->moves++;
 		if (ctx->map[ctx->y][ctx->x] == 'C')
+		{
 			ctx->collectables++;
+			ctx->map[ctx->y][ctx->x] = '0';
+		}
+		if (ctx->map[ctx->y][ctx->x] == 'N')
+			close_window(ctx);
 		if (ctx->map[ctx->y][ctx->x] == 'e' && (ctx->collectables == ctx->total_collectables))
 			close_window(ctx);
 	}
@@ -102,14 +107,25 @@ int deal_key(int key, t_context *ctx)
 		mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, ctx->x * 32, ctx->y * 32);
 		ctx->moves++;
 		if (ctx->map[ctx->y][ctx->x] == 'C')
+		{
 			ctx->collectables++;
+			ctx->map[ctx->y][ctx->x] = '0';
+		}
+		if (ctx->map[ctx->y][ctx->x] == 'N')
+			close_window(ctx);
 		if (ctx->map[ctx->y][ctx->x] == 'e' && (ctx->collectables == ctx->total_collectables))
 			close_window(ctx);
 	}
 	printf("\033[1;32mMoves: %d\033[0m\n", ctx->moves);
-	mlx_string_put(ctx->mlx, ctx->win, 5, ctx->nr_lines * 32 + 50, 0xffffff, "Moves:");
-	mlx_string_put(ctx->mlx, ctx->win, 45, ctx->nr_lines * 32 + 50, 0xffffff, ft_itoa(ctx->moves) );
+	//mlx_string_put(ctx->mlx, ctx->win, 5, ctx->nr_lines * 32 + 50, 0xffffff, "Moves:");
+	//mlx_string_put(ctx->mlx, ctx->win, 45, ctx->nr_lines * 32 + 50, 0xffffff, b); //ft_itoa(ctx->moves) );
+	//free(moves);
+	//char *a = ft_itoa(ctx->moves);
+	//char *b = ft_strjoin("Moves ", a);
+	//free(a);
+	//mlx_string_put(ctx->mlx, ctx->win, 45, ctx->nr_lines * 32 + 50, 0x000000, b); //ft_itoa(ctx->moves) );
 	printf("\033[1;32mCollectables: %d\033[0m\n", ctx->collectables);
+	
 	return (0);
 }
 
@@ -130,7 +146,7 @@ void init(char **argv, t_context *ctx)
 	ctx->total_collectables = 0;
 	ctx->exit = 0;
 	ctx->moves = 0;
-	// ctx->path_devil = "./resources/cat/devil.xpm";
+	ctx->path_devil = "./resources/cat/devil.xpm";
 	ctx->path_coin = "./resources/cat/coin.xpm";
 	ctx->path_exit = "./resources/cat/exit.xpm";
 	ctx->path_wall = "./resources/cat/wall.xpm";
@@ -233,7 +249,7 @@ int main(int argc, char **argv)
 		ctx.img_wall = mlx_xpm_file_to_image(ctx.mlx, ctx.path_wall, &ctx.img_width, &ctx.img_height);//loading wall img
 		ctx.img_exit = mlx_xpm_file_to_image(ctx.mlx, ctx.path_exit, &ctx.img_width, &ctx.img_height); //loading exit img
 		ctx.img_coin = mlx_xpm_file_to_image(ctx.mlx, ctx.path_coin, &ctx.img_width, &ctx.img_height);
-		
+		ctx.img_devil = mlx_xpm_file_to_image(ctx.mlx, ctx.path_devil, &ctx.img_width, &ctx.img_height);
 		load_map(&ctx);//put img to window
 	
 		mlx_hook(ctx.win, 17, 1L << 0, close_window, &ctx);//closing window from x

@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:49 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/19 19:21:03 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 15:50:03 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,33 @@ char	*ft_strnstr(char *s1, char *s2, int n)
 		++i;
 	}
 	return (NULL);
+}
+
+
+char *f_itoa(int nbr) 
+{
+	int n = nbr;
+	int len = 0;
+	
+	while (n) 
+	{
+		n /= 10;
+		len++;
+	}
+	char *result = (char *)malloc(sizeof(char) * (len + 1));
+	if (result == NULL) 
+		return NULL;
+	result[len] = '\0';
+	if (nbr == 0)
+	{
+		result[0] = '0';
+		return(result);
+	}
+	if (nbr < 0) 
+	while (nbr) 
+	{
+		result[--len] = nbr % 10 + '0';
+		nbr /= 10;
+	}
+	return (char *)result;
 }
