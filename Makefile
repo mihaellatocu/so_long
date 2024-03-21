@@ -14,7 +14,8 @@ OBJ = obj/check_errors.o \
 		obj/get_next_line.o \
 		obj/main.o 			\
 		obj/utils.o			\
-		obj/images.o
+		obj/images.o		\
+		obj/key_hooks.o
  
 
 all: $(MLX_LIB)/libmlx_Linux.a lib/libft.a $(NAME)

@@ -6,25 +6,25 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:06 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 10:40:34 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:36:04 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	free_map(t_context *ctx)
+void	free_map(t_context *c)
 {
 	int	i;
 
 	i = 0;
-	while (i < ctx->nr_lines)
+	while (i < c->nr_lines)
 	{
-		free(ctx->map[i]);
-		free(ctx->temp_map[i]);
+		free(c->map[i]);
+		free(c->temp_map[i]);
 		i++;
 	}
-	free(ctx->map);
-	free(ctx->temp_map);
+	free(c->map);
+	free(c->temp_map);
 }
 
 void	validate_args(int argc, char **argv)
@@ -51,49 +51,49 @@ void	validate_args(int argc, char **argv)
 	}
 }
 
-void	valid_map(t_context *ctx)
+void	valid_map(t_context *c)
 {
 	errno = 22;
-	if (!valid_map_len_lines(ctx))
+	if (!valid_map_len_lines(c))
 	{
-		perror("\033[1;31mError:\n Map is not rectangular\033[0m"); // clear the map as well
-		free_map(ctx);
+		perror("\033[1;31mError:\n Map is not rectangular\033[0m");
+		free_map(c);
 		exit(1);
 	}
-	if (!valid_map_walls(ctx))
+	if (!valid_map_walls(c))
 	{
 		perror("\033[1;31mError:\n The frame is incorrect\033[0m");
-		free_map(ctx);
+		free_map(c);
 		exit(1);
 	}
-	if (check_exit(ctx) != 1)
+	if (check_exit(c) != 1)
 	{
 		perror("\033[1;31mError:\n There are no valid exits\033[0m");
-		free_map(ctx);
+		free_map(c);
 		exit(1);
 	}
-	if (check_nr_collectables(ctx) == 0)
+	if (check_nr_collectables(c) == 0)
 	{
 		perror("\033[1;31mError:\n There are no collectables\033[0m");
-		free_map(ctx);
+		free_map(c);
 		exit(1);
 	}
 }
 
-void	collectables_or_exit_in_reach(t_context *ctx)
+void	collectables_or_exit_in_reach(t_context *c)
 {
-	if (check_player(ctx) != 1)
+	if (check_player(c) != 1)
 	{
 		perror("\033[1;31mError:\n The nr of players is invalid\033[0m");
-		free_map(ctx);
+		free_map(c);
 		exit(1);
 	}
-	flood_fill (ctx, ctx->y, ctx->x);
-	//printf("collectables: %d | exits:  %d\n", ctx->collectables, ctx->exit);
-	if (ctx->collectables != 0 || ctx->exit != 1)
+	flood_fill (c, c->y, c->x);
+	if (c->collectables != 0 || c->exit != 1)
 	{
-		perror("\033[1;31mError: Player cannot reach to the exit or all collectables.\033[0m");
-		free_map(ctx);
+		perror("\033[1;31mError: Player cannot reach to the exit or \
+						all collectables.\033[0m");
+		free_map(c);
 		exit(1);
 	}
 }

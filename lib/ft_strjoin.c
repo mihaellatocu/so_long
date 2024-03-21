@@ -6,13 +6,13 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:25:44 by mtocu             #+#    #+#             */
-/*   Updated: 2023/11/09 20:17:38 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 19:18:05 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char  *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	unsigned char	*new_str;
 	size_t			j;
@@ -22,7 +22,8 @@ char	*ft_strjoin(char  *s1, char *s2)
 	i = 0;
 	if (!s1 && !s2)
 		return (NULL);
-	new_str = malloc(sizeof(char) * ((int)ft_strlen(s1) + (int)ft_strlen(s2)) + 1);
+	new_str = malloc(sizeof(char) * ((int)ft_strlen(s1) + \
+				(int)ft_strlen(s2)) + 1);
 	while (s1 && (int)i < (int)ft_strlen(s1))
 	{
 		new_str[i] = s1[i];

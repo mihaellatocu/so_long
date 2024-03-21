@@ -6,14 +6,14 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:33 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/19 19:05:42 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:37:05 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 // checking if the map is rectangular
-int	valid_map_len_lines(t_context *ctx)
+int	valid_map_len_lines(t_context *c)
 {
 	int	i;
 	int	j;
@@ -22,13 +22,13 @@ int	valid_map_len_lines(t_context *ctx)
 	i = 0;
 	j = 0;
 	len_line = 0;
-	while (i < ctx-> nr_lines)
+	while (i < c-> nr_lines)
 	{
-		len_line = ft_strlen(ctx->map[i]);
+		len_line = ft_strlen(c->map[i]);
 		j = i + 1;
-		while (j < ctx->nr_lines) // compare with the next line
+		while (j < c->nr_lines)
 		{
-			if (len_line != ft_strlen(ctx->map[j]))
+			if (len_line != ft_strlen(c->map[j]))
 				return (0);
 			j++;
 		}
@@ -38,22 +38,21 @@ int	valid_map_len_lines(t_context *ctx)
 }
 
 //checking if the walls are valid
-int	valid_map_walls(t_context *ctx)
+int	valid_map_walls(t_context *c)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (i < ctx->nr_lines)
+	while (i < c->nr_lines)
 	{
 		j = 0;
-		ctx->len_line = ft_strlen(ctx->map[i]);
-		//printf("len line --%d\n", ctx->len_line);
-		while (j < ctx->len_line)
+		c->len_line = ft_strlen(c->map[i]);
+		while (j < c->len_line)
 		{
-			if (ctx->map[0][j] != '1' || ctx->map[i][0] != '1' || \
-ctx->map[i][ctx->len_line - 1] != '1' || ctx->map[ctx->nr_lines -1][j] != '1')
+			if (c->map[0][j] != '1' || c->map[i][0] != '1' || \
+c->map[i][c->len_line - 1] != '1' || c->map[c->nr_lines -1][j] != '1')
 				return (0);
 			j++;
 		}

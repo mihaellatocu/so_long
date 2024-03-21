@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 11:12:20 by mtocu             #+#    #+#             */
-/*   Updated: 2023/11/10 16:50:21 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 19:16:48 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char	**create_array(char *s, char c)
 
 char	**ft_split(char *s, char c)
 {
-	int	i;
+	int		i;
 	int		j;
 	int		start_w;
 	char	**arr;

@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:49 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 15:50:03 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 19:32:26 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,43 @@ char	*ft_strnstr(char *s1, char *s2, int n)
 	return (NULL);
 }
 
-
-char *f_itoa(int nbr) 
+//not sure if needed
+char	*f_itoa(int nbr)
 {
-	int n = nbr;
-	int len = 0;
-	
-	while (n) 
+	int		n;
+	int		len;
+	char	*result;
+
+	n = nbr;
+	len = 0;
+	while (n)
 	{
 		n /= 10;
 		len++;
 	}
-	char *result = (char *)malloc(sizeof(char) * (len + 1));
-	if (result == NULL) 
-		return NULL;
+	result = (char *)malloc(sizeof(char) * (len + 1));
 	result[len] = '\0';
 	if (nbr == 0)
 	{
 		result[0] = '0';
-		return(result);
+		return (result);
 	}
-	if (nbr < 0) 
-	while (nbr) 
+	while (nbr)
 	{
 		result[--len] = nbr % 10 + '0';
 		nbr /= 10;
 	}
-	return (char *)result;
+	return ((char *)result);
+}
+
+void	initialize_directions(int *dir_row, int *dir_col)
+{
+	dir_row[0] = -1;
+	dir_row[1] = 0;
+	dir_row[2] = 1;
+	dir_row[3] = 0;
+	dir_col[0] = 0;
+	dir_col[1] = 1;
+	dir_col[2] = 0;
+	dir_col[3] = -1;
 }

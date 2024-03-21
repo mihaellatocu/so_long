@@ -6,49 +6,56 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:22:11 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 17:03:45 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 18:10:13 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// void update_img_size(t_context *ctx)
-// {
-// 	ctx->updated_x = ctx->x * 32;
-// 	ctx->updated_y = ctx->y * 32;
-// 	printf("updated_x  %d\n", ctx->updated_x);
-// 	// ctx->x *= 32;
-// 	// ctx->y *= 32;
-// }
-
-void	load_map(t_context *ctx)
+void	load_map(t_context *c)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < ctx->nr_lines)
+	while (i < c->nr_lines)
 	{
 		j = 0;
-		while (j < ctx->len_line)
+		while (j < c->len_line)
 		{
-			if (ctx->map[i][j] == '1')
-				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_wall, j * 32, i * 32);
-			if (ctx->map[i][j] == 'E')
+			if (c->map[i][j] == '1')
+				mlx_put_image_to_window(c->mlx, c->win, c->img_wall, j * 32, i * 32);
+			if (c->map[i][j] == 'E')
 			{
-				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_exit, j * 32, i * 32);
-				ctx->exit_i = i;
-				ctx->exit_j = j;
+				mlx_put_image_to_window(c->mlx, c->win, c->img_exit, j * 32, i * 32);
+				c->exit_i = i;
+				c->exit_j = j;
 			}
-			if (ctx->map[i][j] == 'C')
-				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_coin, j * 32, i * 32);
-			if (ctx->map[i][j] == 'P')
-				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_cat, j * 32, i * 32);
-			if (ctx->map[i][j] == 'N')
-				mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img_devil, j * 32, i * 32);	
+			if (c->map[i][j] == 'C')
+				mlx_put_image_to_window(c->mlx, c->win, c->img_coin, j * 32, i * 32);
+			if (c->map[i][j] == 'P')
+				mlx_put_image_to_window(c->mlx, c->win, c->img_cat, j * 32, i * 32);
+			if (c->map[i][j] == 'N')
+				mlx_put_image_to_window(c->mlx, c->win, c->img_devil, j * 32, i * 32);
 			j++;
 		}
 		i++;
 	}
-	//update_img_size(ctx);
+}
+
+//Load img on map from path files
+void	load_img_map(t_context *c)
+{
+	c->img_cat = mlx_xpm_file_to_image(c->mlx, c->relative_path, &c->img_width, \
+								&c->img_height);
+	c->img_empty = mlx_xpm_file_to_image(c->mlx, c->path_empty, &c->img_width, \
+								&c->img_height);
+	c->img_wall = mlx_xpm_file_to_image(c->mlx, c->path_wall, &c->img_width, \
+								&c->img_height);
+	c->img_exit = mlx_xpm_file_to_image(c->mlx, c->path_exit, &c->img_width, \
+								&c->img_height);
+	c->img_coin = mlx_xpm_file_to_image(c->mlx, c->path_coin, &c->img_width, \
+								&c->img_height);
+	c->img_devil = mlx_xpm_file_to_image(c->mlx, c->path_devil, &c->img_width, \
+								&c->img_height);
 }

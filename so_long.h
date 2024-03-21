@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:56 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 15:50:29 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/21 19:06:08 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include "get_next_line.h"
 # include <string.h>
 # include <stdio.h>
-
 
 typedef struct s_context
 {
@@ -63,40 +62,31 @@ typedef struct s_context
 	int		len_line;
 	int		nr_lines;
 
-	int moves;
+	int		moves;
 }		t_context;
-
 
 void	ft_strcpy(char *dst, char *src);
 void	validate_args(int argc, char **argv);
-int		map_lines(char **argv, t_context *ctx);
-int		valid_map_len_lines(t_context *ctx);
-int		valid_map_walls(t_context *ctx);
-int		check_nr_collectables(t_context *ctx);
-int		check_exit(t_context *ctx);
-int		check_player(t_context *ctx);
-void	valid_map(t_context *ctx);
+int		map_lines(char **argv, t_context *c);
+int		valid_map_len_lines(t_context *c);
+int		valid_map_walls(t_context *c);
+int		check_nr_collectables(t_context *c);
+int		check_exit(t_context *c);
+int		check_player(t_context *c);
+void	valid_map(t_context *c);
 
-bool	flood_fill(t_context *ctx, int row, int col);
-void	collectables_or_exit_in_reach(t_context *ctx);
-void	free_map(t_context *ctx);
+bool	flood_fill(t_context *c, int row, int col);
+void	collectables_or_exit_in_reach(t_context *c);
+void	free_map(t_context *c);
+void	load_map(t_context *c);
+void	load_img_map(t_context *c);
 
-void	load_map(t_context *ctx);
-void	update_img_size(t_context *ctx);
-
-
-
-
-
-void	ft_putnr(char c);
 char	*f_itoa(int nbr);
-int		close_window(t_context *ctx);
-int		deal_key(int key, t_context *ctx);
-void	init(char **argv, t_context *ctx);
+int		close_window(t_context *c);
+int		deal_key(int key, t_context *c);
+void	init(char **argv, t_context *c);
+void	initialize_directions(int *dir_row, int *dir_col);
 
-
-void	player_position(t_context *ctx);
-
-
+void	player_position(t_context *c);
 
 #endif
