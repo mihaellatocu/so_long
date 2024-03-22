@@ -15,7 +15,8 @@ OBJ = obj/check_errors.o \
 		obj/main.o 			\
 		obj/utils.o			\
 		obj/images.o		\
-		obj/key_hooks.o
+		obj/key_hooks.o		\
+		obj/create_map.o
  
 
 all: $(MLX_LIB)/libmlx_Linux.a lib/libft.a $(NAME)

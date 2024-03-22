@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:11:00 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 19:12:09 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/22 15:44:20 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ int	check_exit(t_context *c)
 		while (j < c->len_line)
 		{
 			if (c->map[i][j] == 'E')
+			{
+				c->exit_i = i;
+				c->exit_j = j;
 				++exit;
+			}
 			++j;
 		}
 		++i;
@@ -81,7 +85,7 @@ int	check_player(t_context *c)
 static	bool	isval(t_context *c, int row, int col)
 {
 	return (row >= 0 && row < c->nr_lines && col >= 0 && \
-			col < c->len_line && c->temp_map[row][col] != '1');
+		col < c->len_line && c->temp_map[row][col] != '1');
 }
 
 // Flood fill algorithm

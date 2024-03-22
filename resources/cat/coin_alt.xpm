@@ -1,15 +1,11 @@
 /* XPM */
 static char *coin[] = {
-/* columns rows colors chars-per-pixel */
 "32 32 4 1 ",
 "  c None",
 ". c black",
 "X c #FFC902",
 "o c white",
 /* pixels */
-"                                ",
-"                                ",
-"                                ",
 "                                ",
 "                                ",
 "                                ",
@@ -33,6 +29,9 @@ static char *coin[] = {
 "         o.X.XXXXXXXX.o         ",
 "          o..........o          ",
 "           oooooooooo           ",
+"                                ",
+"                                ",
+"                                ",
 "                                ",
 "                                ",
 "                                ",

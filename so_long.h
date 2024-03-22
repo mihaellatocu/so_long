@@ -6,7 +6,7 @@
 /*   By: mtocu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 18:10:56 by mtocu             #+#    #+#             */
-/*   Updated: 2024/03/21 19:06:08 by mtocu            ###   ########.fr       */
+/*   Updated: 2024/03/22 14:38:53 by mtocu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "get_next_line.h"
 # include <string.h>
 # include <stdio.h>
+#include <time.h>
 
 typedef struct s_context
 {
@@ -34,6 +35,7 @@ typedef struct s_context
 	void	*img_empty;
 	void	*img_devil;
 	void	*img_coin;
+	void	*img_coin_alt;
 	void	*img_wall;
 	void	*img_exit;
 	int		img_width;
@@ -42,6 +44,7 @@ typedef struct s_context
 	char	*path_empty;
 	char	*path_devil;
 	char	*path_coin;
+	char	*path_coin_alt;
 	char	*path_wall;
 	char	*path_exit;
 	int		keyhook;
@@ -83,10 +86,12 @@ void	load_img_map(t_context *c);
 
 char	*f_itoa(int nbr);
 int		close_window(t_context *c);
-int		deal_key(int key, t_context *c);
+int 	deal_key(int key, t_context *c);
 void	init(char **argv, t_context *c);
 void	initialize_directions(int *dir_row, int *dir_col);
 
 void	player_position(t_context *c);
+
+int	animation(t_context *c);
 
 #endif
