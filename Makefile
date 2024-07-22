@@ -22,7 +22,11 @@ OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o)) 
 
 
-all: $(MLX_LIB)/libmlx_Linux.a lib/libft.a $(NAME)
+all: init-submodules $(MLX_LIB)/libmlx_Linux.a lib/libft.a $(NAME)
+
+init-submodules:
+	@echo "Inițializare submodule..."
+	git submodule update --init --recursive
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)  -L$(MINI_LX_D) -lmlx -L$(LIB_D) -lft -lXext -lX11 -Iget_next_line.h
