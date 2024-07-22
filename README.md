@@ -1,22 +1,16 @@
 so_long
 
 
-`so_long` is a C project developed as part of the 42 curriculum. This project is a simple yet engaging game built using the MiniLibX library. In `so_long`, players navigate through a 2D maze-like map to collect items and achieve specific objectives.
+`so_long` is a C project developed as part of the 42 curriculum. This project is a simple yet engaging game built using the MiniLibX library. In `so_long`, players navigate through a 2D maze-like map to collect items to unlock the exit and quit the game.
 
-## Features
+## Features and Gameplay
 
 - **2D Graphics**: Utilizes the MiniLibX library for rendering graphics and managing the game window.
-- **Map Interaction**: Load and explore user-defined maps to experience different challenges.
-- **Simple Controls**: Intuitive keyboard controls for moving the character and interacting with game elements.
-- **Memory Management**: Includes practices to detect and handle memory leaks, ensuring efficient resource usage.
-
-## Gameplay Rules
-
-- **Objective**: Navigate through the map to collect all the collectible items (e.g. coins) and reach the exit.
-- **Movement**: Use the arrow keys to move the character around the map.
-- **Collectibles**: Collect items scattered throughout the map to unlock new areas or achieve objectives.
-- **Exit**: Find and reach the exit point to complete the level.
-- **Obstacles**: Avoid obstacles and enemies that may hinder progress. Touching an enemy will exit the game.
+- **User-Created Maps**: Play on various user-created maps with different challenges. The maps can be found under resources/maps.
+- **Simple Controls**: The character moves using the arrow keys.
+- **Collect Items**: Gather all coins to unlock the exit. 
+- **Avoid Obstacles**: Dodge enemies and obstacles that try to block your path. Touching an enemy will exit the game.
+- **Memory Management**: Efficient memory handling to ensure there are no memory leaks and the game runs smoothly.
 
 
 ## Installation
@@ -28,10 +22,14 @@ so_long
     ```
 
 2. Build the project:
+    ```bash
     make
+    ```
 
 3. Run the game with a specified map:
+    ```bash
     ./so_long resources/maps/map_6.ber
+    ```
 
 
 ![Game](./game.png)
