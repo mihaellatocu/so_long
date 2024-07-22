@@ -1,7 +1,9 @@
 so_long
 
+##
 
-`so_long` is a C project developed as part of the 42 curriculum. This project is a simple yet engaging game built using the MiniLibX library. In `so_long`, players navigate through a 2D maze-like map to collect items to unlock the exit and quit the game.
+so_long is a beginner-level game development project from 42School. Using C and the MiniLibX library, the goal is to create a 2D game where a player navigates a map to collect items and reach the exit. The map, defined in a .ber file, includes walls (1), empty spaces (0), collectibles (C), the player's start (P), and the exit (E). The game handles user inputs for player movement and dynamically updates the game state. Key learning areas include basic game loops, 2D graphics rendering, event handling, and memory management. This project introduces essential skills for game programming and low-level development.
+
 
 ## Features and Gameplay
 
