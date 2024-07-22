@@ -59,6 +59,6 @@ dkms.conf
 
 
 ## my ignore list
-minilibx-linux
+#minilibx-linux
 .vscode
 .~lock.Better.odt#
